@@ -764,7 +764,7 @@
                     <span class="event-name">La Mairie</span>
                     <div class="radio-group">
                         <label class="radio-item"><input type="radio" name="mairie" value="Oui" required> Assistera</label>
-                        <label class="radio-item"><input type="radio" name="mairie" value="Non"> N'assistera pas</label>
+                        <label class="radio-item"><input type="radio" name="mairie" value="Non" required> N'assistera pas</label>
                     </div>
                     <input type="number" name="nb_mairie" placeholder="Nombre de personnes" min="0" inputmode="numeric">
                 </div>
@@ -773,7 +773,7 @@
                     <span class="event-name">Chabbat</span>
                     <div class="radio-group">
                         <label class="radio-item"><input type="radio" name="chabbat" value="Oui" required> Assistera</label>
-                        <label class="radio-item"><input type="radio" name="chabbat" value="Non"> N'assistera pas</label>
+                        <label class="radio-item"><input type="radio" name="chabbat" value="Non" required> N'assistera pas</label>
                     </div>
                     <input type="number" name="nb_chabbat" placeholder="Nombre de personnes" min="0" inputmode="numeric">
                 </div>
@@ -782,7 +782,7 @@
                     <span class="event-name">La Beach Party</span>
                     <div class="radio-group">
                         <label class="radio-item"><input type="radio" name="beach" value="Oui" required> Assistera</label>
-                        <label class="radio-item"><input type="radio" name="beach" value="Non"> N'assistera pas</label>
+                        <label class="radio-item"><input type="radio" name="beach" value="Non" required> N'assistera pas</label>
                     </div>
                     <input type="number" name="nb_beach" placeholder="Nombre de personnes" min="0" inputmode="numeric">
                 </div>
@@ -791,7 +791,7 @@
                     <span class="event-name">Houppa & Soirée</span>
                     <div class="radio-group">
                         <label class="radio-item"><input type="radio" name="houppa" value="Oui" required> Assistera</label>
-                        <label class="radio-item"><input type="radio" name="houppa" value="Non"> N'assistera pas</label>
+                        <label class="radio-item"><input type="radio" name="houppa" value="Non" required> N'assistera pas</label>
                     </div>
                     <input type="number" name="nb_houppa" placeholder="Nombre de personnes" min="0" inputmode="numeric">
                 </div>
@@ -982,14 +982,11 @@
             btn.innerText = 'ENVOI...';
 
             try {
-                const response = await fetch(scriptURL, {
+                await fetch(scriptURL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     body: new FormData(form)
                 });
-
-                if (!response.ok) {
-                    throw new Error('Erreur réseau');
-                }
 
                 form.style.display = 'none';
                 msgRetour.style.display = 'block';
@@ -1007,6 +1004,11 @@
 
                 if (radio.value === 'Non' && radio.checked) {
                     numberInput.value = 0;
+                } else if (radio.value === 'Oui' && radio.checked) {
+                    if (!numberInput.value || Number(numberInput.value) <= 0) {
+                        numberInput.value = 1;
+                    }
+                    numberInput.focus();
                 }
             });
         });
