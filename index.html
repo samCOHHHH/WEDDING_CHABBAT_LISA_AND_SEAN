@@ -981,20 +981,14 @@
             btn.disabled = true;
             btn.innerText = 'ENVOI...';
 
-            try {
-                await fetch(scriptURL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: new FormData(form)
-                });
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: new FormData(form)
+            }).catch(() => {});
 
-                form.style.display = 'none';
-                msgRetour.style.display = 'block';
-            } catch (error) {
-                msgErreur.style.display = 'block';
-                btn.disabled = false;
-                btn.innerText = 'ENVOYER';
-            }
+            form.style.display = 'none';
+            msgRetour.style.display = 'block';
         });
 
         document.querySelectorAll('input[type="radio"]').forEach((radio) => {
