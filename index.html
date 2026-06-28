@@ -528,16 +528,13 @@
             display: flex;
         }
 
-        #msgRetour,
-        #msgErreur {
+        #msgRetour {
             display: none;
             margin-top: 20px;
             font-weight: 600;
             text-align: center;
+            color: var(--ivory);
         }
-
-        #msgRetour { color: var(--ivory); }
-        #msgErreur { color: #f87171; }
 
         .card-separator {
             text-align: center;
@@ -803,7 +800,6 @@
             </form>
 
             <div id="msgRetour">Merci ! Votre réponse a bien été enregistrée.</div>
-            <div id="msgErreur">Une erreur est survenue. Merci de réessayer.</div>
         </section>
     </main>
 
@@ -968,10 +964,8 @@
 
             const btn = document.getElementById('submitBtn');
             const msgRetour = document.getElementById('msgRetour');
-            const msgErreur = document.getElementById('msgErreur');
 
             msgRetour.style.display = 'none';
-            msgErreur.style.display = 'none';
 
             if (!validateAttendance('mairie', 'nb_mairie', 'la Mairie')) return;
             if (!validateAttendance('chabbat', 'nb_chabbat', 'le Chabbat Kalah')) return;
